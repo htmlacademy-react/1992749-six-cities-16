@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Lev Diakov](https://up.htmlacademy.ru/react/16/user/1992749).
-* Наставник: `Неизвестно`.
+* Наставник: [Артём Новоселов](https://htmlacademy.ru/profile/id1195129).
 
 ---
 
