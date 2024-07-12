@@ -16,18 +16,19 @@ function App({numberOfRentalOffers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Layout />} />
-        <Route index element={<MainPage numberOfRentalOffers={numberOfRentalOffers} />} />
-        <Route path={AppRoute.Offer} element={<OfferPage />} />
-        <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Favorites} element={
-          <PrivateRoute
-            authorizationStatus={AuthorizationStatus.NoAuth}
-          >
-            <FavoritesPage />
-          </PrivateRoute>
-        }
-        />
+        <Route path={AppRoute.Main} element={<Layout />} >
+          <Route index element={<MainPage numberOfRentalOffers={numberOfRentalOffers} />} />
+          <Route path={AppRoute.Offer} element={<OfferPage />} />
+          <Route path={AppRoute.Login} element={<LoginPage />} />
+          <Route path={AppRoute.Favorites} element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.Auth}
+            >
+              <FavoritesPage />
+            </PrivateRoute>
+          }
+          />
+        </Route>
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

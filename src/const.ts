@@ -1,10 +1,10 @@
 export const NUMBER_OF_RENTAL_OFFERS = 5;
 
 export enum AppRoute {
-  Root = '/',
-  Offer = 'offer-page/:id',
-  Login = '/login-page',
-  Favorites = 'favorites-page',
+  Main = '/',
+  Offer = 'offer/:id',
+  Login = '/login',
+  Favorites = 'favorites',
 }
 
 export enum AuthorizationStatus {
