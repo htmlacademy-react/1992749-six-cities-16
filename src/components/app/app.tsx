@@ -7,6 +7,9 @@ import Layout from '../layout/layout';
 import PageNotFound from '../page-not-found/page-not-found';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
+import { PublicRoute } from '../public-route/public-route';
+
+const currentStatus = AuthorizationStatus.NoAuth;
 
 type AppProps = {
   numberOfRentalOffers: number;
@@ -19,10 +22,17 @@ function App({numberOfRentalOffers}: AppProps): JSX.Element {
         <Route path={AppRoute.Main} element={<Layout />} >
           <Route index element={<MainPage numberOfRentalOffers={numberOfRentalOffers} />} />
           <Route path={AppRoute.Offer} element={<OfferPage />} />
-          <Route path={AppRoute.Login} element={<LoginPage />} />
+          <Route path={AppRoute.Login} element={
+            <PublicRoute
+              authorizationStatus={currentStatus}
+            >
+              <LoginPage />
+            </PublicRoute>
+          }
+          />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={currentStatus}
             >
               <FavoritesPage />
             </PrivateRoute>
