@@ -1,5 +1,3 @@
-export const NUMBER_OF_RENTAL_OFFERS = 5;
-
 export enum AppRoute {
   Main = '/',
   Offer = 'offer/:id',

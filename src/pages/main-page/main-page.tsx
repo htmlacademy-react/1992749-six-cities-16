@@ -1,10 +1,12 @@
 import PlaceCard from '../../components/place-card/place-card';
+import { Offer } from '../../types/types';
 
 type MainPageProps = {
-  numberOfRentalOffers: number;
+  offers: Offer[];
 }
 
-function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
+function MainPage({offers}: MainPageProps): JSX.Element {
+
   return (
 
     <div className="page page--gray page--main">
@@ -51,7 +53,7 @@ function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfRentalOffers} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -69,7 +71,7 @@ function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {Array.from({length: numberOfRentalOffers}, () => <PlaceCard key={crypto.randomUUID()} />)}
+                {offers.map((item) => <PlaceCard key={item.id} offer={item}/>)}
 
               </div>
             </section>
