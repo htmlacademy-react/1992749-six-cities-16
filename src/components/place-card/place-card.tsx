@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Offer } from '../../types/types';
 
 type PlaceCardProps = {
@@ -5,10 +6,11 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({offer}: PlaceCardProps): JSX.Element {
-  const {price, previewImage, title, type, isPremium, rating} = offer;
+  const {price, previewImage, title, type, isPremium, rating, id} = offer;
+  const [activeId] = useState(id);
 
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={() => (activeId)}>
       { isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>

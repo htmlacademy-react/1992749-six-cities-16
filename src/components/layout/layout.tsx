@@ -1,14 +1,16 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 
 function Layout(): JSX.Element {
+  const {pathname} = useLocation();
+
   return (
     <>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link header__logo-link--active" to="/">
+              <Link className={`header__logo-link ${pathname === '/' ? 'header__logo-link--active' : ''}`} to="/" >
                 <img
                   className="header__logo"
                   src="img/logo.svg"
