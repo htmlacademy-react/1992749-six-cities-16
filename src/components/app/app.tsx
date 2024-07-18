@@ -10,7 +10,7 @@ import PrivateRoute from '../private-route/private-route';
 import { PublicRoute } from '../public-route/public-route';
 import { Offer } from '../../types/types';
 
-const currentStatus = AuthorizationStatus.NoAuth;
+const currentStatus = AuthorizationStatus.Auth;
 
 type AppProps = {
   offers: Offer[];
