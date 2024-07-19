@@ -1,5 +1,5 @@
 import ListOffers from '../../components/list-offers/list-offers';
-import { NAME_CITY } from '../../const';
+import { CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 
 type MainPageProps = {
@@ -18,7 +18,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <section className="locations container">
 
             <ul className="locations__list tabs__list">
-              {NAME_CITY.map((item) => (
+              {CITY_NAMES.map((item) => (
                 <li className="locations__item" key={item}>
                   <a className="locations__item-link tabs__item" href="#">
                     <span>{item}</span>
