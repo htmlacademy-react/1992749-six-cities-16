@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import ListOffers from '../../components/list-offers/list-offers';
-import { CITY_NAMES } from '../../const';
+import { ACTIVE_CITY, CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 
 type MainPageProps = {
@@ -20,9 +21,9 @@ function MainPage({offers}: MainPageProps): JSX.Element {
             <ul className="locations__list tabs__list">
               {CITY_NAMES.map((item) => (
                 <li className="locations__item" key={item}>
-                  <a className="locations__item-link tabs__item" href="#">
+                  <Link className={`locations__item-link tabs__item ${(item === ACTIVE_CITY) ? 'tabs__item--active' : ''}`} to="#">
                     <span>{item}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
 
@@ -33,7 +34,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {ACTIVE_CITY}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

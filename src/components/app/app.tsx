@@ -8,26 +8,28 @@ import PageNotFound from '../page-not-found/page-not-found';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { PublicRoute } from '../public-route/public-route';
-import { Offer } from '../../types/types';
+import { FullOffer, Offer } from '../../types/types';
 
 const currentStatus = AuthorizationStatus.Auth;
 
 type AppProps = {
   offers: Offer[];
+  fullOffers: FullOffer[];
 }
 
-function App({offers}: AppProps): JSX.Element {
+function App({offers, fullOffers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />} >
           <Route index element={
-            < MainPage
-              offers={offers}
-            />
+            < MainPage offers={offers}/>
           }
           />
-          <Route path={AppRoute.Offer} element={<OfferPage />} />
+          <Route path={AppRoute.Offer} element={
+            <OfferPage fullOffers={fullOffers}/>
+          }
+          />
           <Route path={AppRoute.Login} element={
             <PublicRoute
               authorizationStatus={currentStatus}

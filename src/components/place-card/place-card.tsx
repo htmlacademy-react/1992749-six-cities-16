@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Offer } from '../../types/types';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { getCapitalLetter } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -28,9 +30,9 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
           <span>Premium</span>
         </div> : ''}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={AppRoute.Offer.replace(':id', id)}>
           <img className="place-card__image" src={previewImage} width={(pathname === '/favorites') ? '150' : '260'} height={(pathname === '/favorites') ? '110' : '200'} alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={`${(pathname === '/favorites') ? 'favorites__card-info' : ''} 'place-card__info'`}>
         <div className="place-card__price-wrapper">
@@ -54,7 +56,7 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
         <h2 className="place-card__name">
           <a href="#">{title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{getCapitalLetter(type)}</p>
       </div>
     </article>
   );
