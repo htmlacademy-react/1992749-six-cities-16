@@ -70,7 +70,7 @@ function FavoritesPage(): JSX.Element {
                 </div>
                 <div className="favorites__places">
 
-                  {favorites.map((item) => <PlaceCard key={item.id} offer={item}/>)}
+                  {favorites.map((item) => <PlaceCard key={item.id} offer={item} className='favorites'/>)}
 
                 </div>
               </li>

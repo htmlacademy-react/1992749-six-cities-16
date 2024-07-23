@@ -1,26 +1,17 @@
 import { useState } from 'react';
 import { Offer } from '../../types/types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getCapitalLetter } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
+  className: string;
 }
 
-function PlaceCard({offer}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, className}: PlaceCardProps): JSX.Element {
   const {price, previewImage, title, type, isPremium, rating, id, isFavorite} = offer;
   const [activeId] = useState(id);
-  const {pathname} = useLocation();
-
-  let className;
-  if (pathname === '/') {
-    className = 'cities';
-  } else if (pathname === '/favorites') {
-    className = 'favorites';
-  } else if (pathname === 'offer/:id') {
-    className = 'near-places';
-  }
 
 
   return (
@@ -31,10 +22,10 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
         </div> : ''}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.Offer.replace(':id', id)}>
-          <img className="place-card__image" src={previewImage} width={(pathname === '/favorites') ? '150' : '260'} height={(pathname === '/favorites') ? '110' : '200'} alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={(className === 'favorites') ? '150' : '260'} height={(className === '/favorites') ? '110' : '200'} alt="Place image" />
         </Link>
       </div>
-      <div className={`${(pathname === '/favorites') ? 'favorites__card-info' : ''} 'place-card__info'`}>
+      <div className={`${className === 'favorites' ? 'favorites__card-info' : ''}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -54,7 +45,7 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.Offer.replace(':id', id)}>{title}</Link>
         </h2>
         <p className="place-card__type">{getCapitalLetter(type)}</p>
       </div>

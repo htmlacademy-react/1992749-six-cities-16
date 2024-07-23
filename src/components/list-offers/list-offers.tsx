@@ -11,7 +11,7 @@ function ListOffers({offers}: PlacesListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
 
-      {offers.map((item) => <PlaceCard key={item.id} offer={item}/>)}
+      {offers.map((item) => <PlaceCard key={item.id} offer={item} className='cities'/>)}
 
     </div>
   );
