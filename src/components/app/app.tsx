@@ -18,10 +18,12 @@ type AppProps = {
 }
 
 function App({offers, fullOffers}: AppProps): JSX.Element {
+  const favorites = offers.filter((item) => item.isFavorite);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Layout />} >
+        <Route path={AppRoute.Main} element={<Layout favoritesCount={favorites.length}/>} >
           <Route index element={
             < MainPage offers={offers}/>
           }
@@ -42,7 +44,7 @@ function App({offers, fullOffers}: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={currentStatus}
             >
-              <FavoritesPage />
+              <FavoritesPage favorites={favorites}/>
             </PrivateRoute>
           }
           />

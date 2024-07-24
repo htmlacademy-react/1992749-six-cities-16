@@ -1,8 +1,11 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
+type LayoutProps = {
+  favoritesCount: number;
+}
 
-function Layout(): JSX.Element {
+function Layout({favoritesCount}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
 
   return (
@@ -29,7 +32,7 @@ function Layout(): JSX.Element {
                     <span className="header__user-name user__name">
                 Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoritesCount}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
