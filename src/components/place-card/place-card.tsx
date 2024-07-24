@@ -3,7 +3,7 @@ import { Offer } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getCapitalLetter } from '../../utils';
-import FavoriteButton from '../../favorite-button/favorite-button';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: Offer;

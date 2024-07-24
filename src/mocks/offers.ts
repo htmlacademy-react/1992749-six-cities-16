@@ -526,7 +526,7 @@ export const offers: Offer[] = [
       'longitude': 6.943974,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 2.9
   },
@@ -1584,7 +1584,7 @@ export const offers: Offer[] = [
       'longitude': 4.887976,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 1
   },
@@ -1607,7 +1607,7 @@ export const offers: Offer[] = [
       'longitude': 4.9099759999999995,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 4.8
   },

@@ -57,3 +57,7 @@ export type Comment = {
   comment: string;
   rating: number;
 }
+
+export type CardsByCityType = {
+  [key: string]: Offer[];
+}

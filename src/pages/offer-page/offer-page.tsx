@@ -5,7 +5,7 @@ import { getCapitalLetter, getPhrases } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { AppRoute } from '../../const';
-import FavoriteButton from '../../favorite-button/favorite-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];

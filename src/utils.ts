@@ -1,4 +1,6 @@
 import { AppRoute } from './const';
+import { Offer, CardsByCityType } from './types/types';
+
 
 export const getCapitalLetter = (item: string) => `${item[0].toUpperCase()}${item.slice(1)}`;
 
@@ -21,4 +23,18 @@ export const getLayoutState = (pathname: AppRoute) => {
   }
 
   return {rootClassName, linkClassName, shouldRenderUser, shouldRenderFooter};
+};
+
+export const getOfferCardsByCity = (offerCards: Offer[]) => {
+  const cardsByCity: CardsByCityType = {};
+
+  for (const card of offerCards) {
+    if (!cardsByCity[card.city.name]) {
+      cardsByCity[card.city.name] = [];
+    }
+
+    cardsByCity[card.city.name].push(card);
+  }
+
+  return cardsByCity;
 };
