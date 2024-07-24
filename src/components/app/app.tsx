@@ -5,12 +5,11 @@ import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import Layout from '../layout/layout';
 import PageNotFound from '../page-not-found/page-not-found';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { PublicRoute } from '../public-route/public-route';
 import { FullOffer, Offer } from '../../types/types';
-
-const currentStatus = AuthorizationStatus.Auth;
+import { getAuthorizationStatus } from '../../authorization-status';
 
 type AppProps = {
   offers: Offer[];
@@ -19,6 +18,7 @@ type AppProps = {
 
 function App({offers, fullOffers}: AppProps): JSX.Element {
   const favorites = offers.filter((item) => item.isFavorite);
+  const authorizationStatus = getAuthorizationStatus();
 
   return (
     <BrowserRouter>
@@ -34,7 +34,7 @@ function App({offers, fullOffers}: AppProps): JSX.Element {
           />
           <Route path={AppRoute.Login} element={
             <PublicRoute
-              authorizationStatus={currentStatus}
+              authorizationStatus={authorizationStatus}
             >
               <LoginPage />
             </PublicRoute>
@@ -42,7 +42,7 @@ function App({offers, fullOffers}: AppProps): JSX.Element {
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute
-              authorizationStatus={currentStatus}
+              authorizationStatus={authorizationStatus}
             >
               <FavoritesPage favorites={favorites}/>
             </PrivateRoute>

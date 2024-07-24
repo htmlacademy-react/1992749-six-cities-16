@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import FavoriteContainer from '../../components/favorite-container/favorite-container';
 import FavoriteEmpty from '../../components/favorite-empty/favorite-empty';
 import { Offer } from '../../types/types';
@@ -16,11 +15,6 @@ function FavoritesPage({favorites}: FavoritesPageProps): JSX.Element {
           {favorites.length < 1 ? <FavoriteEmpty /> : <FavoriteContainer favorites={favorites}/>}
         </div>
       </main>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to="/">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </Link>
-      </footer>
     </div>
   );
 }
