@@ -1,18 +1,23 @@
-import { useLocation } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Reviews from '../../components/reviews/reviews';
 import { FullOffer } from '../../types/types';
 import { getCapitalLetter, getPhrases } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
+import { AppRoute } from '../../const';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
 }
 
 function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
-  const {pathname} = useLocation();
-  const currentOffer = fullOffers.filter((item) => item.id === pathname.replace('/offer/', ''));
-  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description} = currentOffer[0];
+  const {id} = useParams();
+  const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
+
+  if (!currentOffer) {
+    return <Navigate to={AppRoute.NotFound} replace/>;
+  }
+  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description} = currentOffer;
 
   return (
     <div className="page">
