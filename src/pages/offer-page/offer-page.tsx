@@ -5,6 +5,7 @@ import { getCapitalLetter, getPhrases } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { AppRoute } from '../../const';
+import FavoriteButton from '../../favorite-button/favorite-button';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
@@ -17,7 +18,7 @@ function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
   if (!currentOffer) {
     return <Navigate to={AppRoute.NotFound} replace/>;
   }
-  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description} = currentOffer;
+  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description, isFavorite} = currentOffer;
 
   return (
     <div className="page">
@@ -43,12 +44,7 @@ function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton isFavorite={isFavorite} className='offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
