@@ -50,13 +50,15 @@ export type FullOffer = {
   maxAdults: number;
 }
 
-export type Comment = {
+export type userReview = {
   id: string;
   date: string;
   user: Host;
   comment: string;
   rating: number;
 }
+
+export type userReviews = userReview[];
 
 export type CardsByCityType = {
   [key: string]: Offer[];

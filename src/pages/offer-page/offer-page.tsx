@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Reviews from '../../components/reviews/reviews';
-import { FullOffer } from '../../types/types';
-import { getCapitalLetter, getPhrases } from '../../utils';
+import { FullOffer, userReviews} from '../../types/types';
+import { getCapitalLetter } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { AppRoute } from '../../const';
@@ -9,9 +9,10 @@ import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
+  reviews: userReviews[];
 }
 
-function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
+function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
 
@@ -58,7 +59,7 @@ function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
                   {getCapitalLetter(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
                   Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
@@ -92,15 +93,13 @@ function OfferPage({fullOffers}: OfferPageProps): JSX.Element {
                   </span>
                 </div>
                 <div className="offer__description">
-                  {getPhrases(description).map((item) => (
-                    <p className="offer__text" key={item}>
-                      {item}
-                    </p>
-                  ))}
+                  <p className="offer__text">
+                    {description}
+                  </p>
                 </div>
               </div>
 
-              <Reviews />
+              <Reviews reviews={reviews}/>
 
             </div>
           </div>

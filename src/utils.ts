@@ -1,10 +1,7 @@
 import { AppRoute } from './const';
 import { Offer, CardsByCityType } from './types/types';
 
-
 export const getCapitalLetter = (item: string) => `${item[0].toUpperCase()}${item.slice(1)}`;
-
-export const getPhrases = (item: string) => item.replace(/([.?!])\s*(?=[A-Z])/g, '$1|').split('|');
 
 export const getLayoutState = (pathname: AppRoute) => {
   let rootClassName = '';
@@ -37,4 +34,9 @@ export const getOfferCardsByCity = (offerCards: Offer[]) => {
   }
 
   return cardsByCity;
+};
+
+export const gethumanizeDate = (item: string) => {
+  const date = new Date(item).toDateString();
+  return `${date.slice(3, 7)} ${date.slice(-4)}`;
 };
