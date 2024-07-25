@@ -6,7 +6,7 @@ export const reviews: userReviews[] = [
   [{
     'id': '57521517-6d28-4f3f-bcef-325df98b9853',
     'comment': 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
-    'date': '2024-06-28T21:00:00.025Z',
+    'date': '2024-01-28T21:00:00.025Z',
     'rating': 3,
     'user': {
       'name': 'Jack',
@@ -32,7 +32,7 @@ export const reviews: userReviews[] = [
   [{
     'id': '8fa9af72-d212-4dfb-8203-9af654f17ce7',
     'comment': 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',
-    'date': '2024-06-29T21:00:00.025Z',
+    'date': '2024-02-29T21:00:00.025Z',
     'rating': 4,
     'user': {
       'name': 'Zak',
@@ -56,7 +56,7 @@ export const reviews: userReviews[] = [
   {
     'id': 'c73408e7-e833-4f97-a387-576539efd296',
     'comment': 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
-    'date': '2024-06-26T21:00:00.025Z',
+    'date': '2024-04-26T21:00:00.025Z',
     'rating': 3,
     'user': {
       'name': 'Kendall',
@@ -68,7 +68,7 @@ export const reviews: userReviews[] = [
   {
     'id': 'bbf1b765-bb1d-41c1-acd7-60ecfddd1127',
     'comment': 'I stayed here for one night and it was an unpleasant experience.',
-    'date': '2024-06-24T21:00:00.025Z',
+    'date': '2024-09-24T21:00:00.025Z',
     'rating': 3,
     'user': {
       'name': 'Mollie',
@@ -106,7 +106,7 @@ export const reviews: userReviews[] = [
     {
       'id': 'c5d15da4-2d41-4ac7-be4e-b5f988d24311',
       'comment': 'Bathed in the nature. Completely unplugged. Unforgettable.',
-      'date': '2024-07-01T21:00:00.076Z',
+      'date': '2024-09-01T21:00:00.076Z',
       'rating': 4,
       'user': {
         'name': 'Zak',
@@ -120,7 +120,7 @@ export const reviews: userReviews[] = [
     {
       'id': '24a0efc6-d932-43b9-bbc1-6677d29f3e66',
       'comment': 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',
-      'date': '2024-07-03T21:00:00.076Z',
+      'date': '2024-01-03T21:00:00.076Z',
       'rating': 5,
       'user': {
         'name': 'Isaac',

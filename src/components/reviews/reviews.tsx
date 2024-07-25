@@ -3,7 +3,7 @@ import { AuthorizationStatus, REVIEWS_RATING } from '../../const';
 import { userReviews } from '../../types/types';
 import { getRandomElement } from '../../mocks/reviews';
 import { getAuthorizationStatus } from '../../authorization-status';
-import { gethumanizeDate } from '../../utils';
+import { gethumanizeDate, getSortedByDates } from '../../utils';
 
 type ReviewsProps = {
   reviews: userReviews[];
@@ -22,7 +22,7 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
     Reviews · <span className="reviews__amount">{reviewsRandom.length}</span>
       </h2>
       <ul className="reviews__list">
-        {reviewsRandom.map((item) => (reviewsRandom.length > 0 ? (
+        {reviewsRandom.sort(getSortedByDates).map((item) => (reviewsRandom.length > 0 ? (
           <li className="reviews__item" key={crypto.randomUUID()}>
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">

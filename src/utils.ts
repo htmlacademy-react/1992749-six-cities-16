@@ -1,5 +1,5 @@
-import { AppRoute } from './const';
-import { Offer, CardsByCityType } from './types/types';
+import { AppRoute, MONTHS } from './const';
+import { Offer, CardsByCityType, userReview } from './types/types';
 
 export const getCapitalLetter = (item: string) => `${item[0].toUpperCase()}${item.slice(1)}`;
 
@@ -37,6 +37,8 @@ export const getOfferCardsByCity = (offerCards: Offer[]) => {
 };
 
 export const gethumanizeDate = (item: string) => {
-  const date = new Date(item).toDateString();
-  return `${date.slice(3, 7)} ${date.slice(-4)}`;
+  const date = new Date(item);
+  return `${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
 };
+
+export const getSortedByDates = (a: userReview, b: userReview) => (new Date(b.date).getTime()) - (new Date(a.date).getTime());
