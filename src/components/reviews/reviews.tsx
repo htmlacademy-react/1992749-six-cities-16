@@ -13,6 +13,7 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
   const reviewsRandom = getRandomElement(reviews);
   const [formData, setFormData] = useState({
+    rating: 0,
     review: '',
   });
 
@@ -60,13 +61,19 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
           </label>
           <div className="reviews__rating-form form__rating" >
             {REVIEWS_RATING.map(({title, id}) => (
-              <div key={title}>
+              <div key={title} >
                 <input
                   className="form__rating-input visually-hidden"
                   name="rating"
                   defaultValue={id}
                   id={`${id}'-stars'`}
                   type="radio"
+                  onChange={
+                    (evt) => {
+                      const {name, value} = evt.target;
+                      setFormData({...formData, [name]: value});
+                    }
+                  }
                 />
                 <label key={title}
                   htmlFor={`${id}'-stars'`}
