@@ -14,9 +14,11 @@ function PlaceCard({offer, className}: PlaceCardProps): JSX.Element {
   const {price, previewImage, title, type, isPremium, rating, id, isFavorite} = offer;
   const [activeId] = useState(id);
 
-
   return (
-    <article className={`${className}__card place-card`} onMouseEnter={() => (activeId)} >
+    <article className={`${className}__card place-card`}
+      onMouseEnter={() => (activeId)}
+      onMouseLeave={() => (activeId)}
+    >
       { isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
