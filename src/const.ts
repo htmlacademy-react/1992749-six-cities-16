@@ -1,10 +1,9 @@
-export const NUMBER_OF_RENTAL_OFFERS = 5;
-
 export enum AppRoute {
   Main = '/',
-  Offer = 'offer/:id',
+  Offer = '/offer/:id',
   Login = '/login',
-  Favorites = 'favorites',
+  Favorites = '/favorites',
+  NotFound = '/404',
 }
 
 export enum AuthorizationStatus {
@@ -12,3 +11,11 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const ACTIVE_CITY = CITY_NAMES[3];
+
+export const REVIEWS_RATING = [{title: 'perfect', id: 5}, {title: 'good', id: 4}, {title: 'not bad', id: 3},{title: 'badly', id: 2},{title: 'terribly', id: 1}];
+
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

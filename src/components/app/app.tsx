@@ -5,26 +5,38 @@ import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import Layout from '../layout/layout';
 import PageNotFound from '../page-not-found/page-not-found';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { PublicRoute } from '../public-route/public-route';
+import { FullOffer, Offer } from '../../types/types';
+import { getAuthorizationStatus } from '../../authorization-status';
+import { reviews } from '../../mocks/reviews';
 
-const currentStatus = AuthorizationStatus.NoAuth;
 
 type AppProps = {
-  numberOfRentalOffers: number;
+  offers: Offer[];
+  fullOffers: FullOffer[];
 }
 
-function App({numberOfRentalOffers}: AppProps): JSX.Element {
+function App({offers, fullOffers}: AppProps): JSX.Element {
+  const favorites = offers.filter((item) => item.isFavorite);
+  const authorizationStatus = getAuthorizationStatus();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Layout />} >
-          <Route index element={<MainPage numberOfRentalOffers={numberOfRentalOffers} />} />
-          <Route path={AppRoute.Offer} element={<OfferPage />} />
+        <Route path={AppRoute.Main} element={<Layout favoritesCount={favorites.length}/>} >
+          <Route index element={
+            < MainPage offers={offers}/>
+          }
+          />
+          <Route path={AppRoute.Offer} element={
+            <OfferPage fullOffers={fullOffers} reviews={reviews}/>
+          }
+          />
           <Route path={AppRoute.Login} element={
             <PublicRoute
-              authorizationStatus={currentStatus}
+              authorizationStatus={authorizationStatus}
             >
               <LoginPage />
             </PublicRoute>
@@ -32,9 +44,9 @@ function App({numberOfRentalOffers}: AppProps): JSX.Element {
           />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute
-              authorizationStatus={currentStatus}
+              authorizationStatus={authorizationStatus}
             >
-              <FavoritesPage />
+              <FavoritesPage favorites={favorites}/>
             </PrivateRoute>
           }
           />

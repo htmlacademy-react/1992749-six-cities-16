@@ -1,10 +1,14 @@
-import PlaceCard from '../../components/place-card/place-card';
+import { Link } from 'react-router-dom';
+import ListOffers from '../../components/list-offers/list-offers';
+import { ACTIVE_CITY, CITY_NAMES } from '../../const';
+import { Offer } from '../../types/types';
 
 type MainPageProps = {
-  numberOfRentalOffers: number;
+  offers: Offer[];
 }
 
-function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
+function MainPage({offers}: MainPageProps): JSX.Element {
+
   return (
 
     <div className="page page--gray page--main">
@@ -13,37 +17,16 @@ function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
+
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {CITY_NAMES.map((item) => (
+                <li className="locations__item" key={item}>
+                  <Link className={`locations__item-link tabs__item ${(item === ACTIVE_CITY) ? 'tabs__item--active' : ''}`} to="#">
+                    <span>{item}</span>
+                  </Link>
+                </li>
+              ))}
+
             </ul>
           </section>
         </div>
@@ -51,7 +34,7 @@ function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfRentalOffers} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {ACTIVE_CITY}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -67,11 +50,9 @@ function MainPage({numberOfRentalOffers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
 
-                {Array.from({length: numberOfRentalOffers}, () => <PlaceCard key={crypto.randomUUID()} />)}
+              <ListOffers offers={offers}/>
 
-              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
