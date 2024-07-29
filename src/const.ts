@@ -1,3 +1,5 @@
+import { City } from './types/types';
+
 export enum AppRoute {
   Main = '/',
   Offer = '/offer/:id',
@@ -19,3 +21,16 @@ export const ACTIVE_CITY = CITY_NAMES[3];
 export const REVIEWS_RATING = [{title: 'perfect', id: 5}, {title: 'good', id: 4}, {title: 'not bad', id: 3},{title: 'badly', id: 2},{title: 'terribly', id: 1}];
 
 export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export const CITY: City = {
+  name: 'Amsterdam',
+  'location': {
+    'latitude': 52.37454,
+    'longitude': 4.897976,
+    'zoom': 13
+  }
+};
+
+export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+
+export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
