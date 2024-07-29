@@ -8,16 +8,21 @@ import FavoriteButton from '../favorite-button/favorite-button';
 type PlaceCardProps = {
   offer: Offer;
   className: string;
+  onListOfferHover: (activeId?: string) => void;
 }
 
-function PlaceCard({offer, className}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, className, onListOfferHover}: PlaceCardProps): JSX.Element {
   const {price, previewImage, title, type, isPremium, rating, id, isFavorite} = offer;
   const [activeId] = useState(id);
 
   return (
     <article className={`${className}__card place-card`}
-      onMouseEnter={() => (activeId)}
-      onMouseLeave={() => (activeId)}
+      onMouseEnter={() => onListOfferHover(activeId)}
+      onMouseLeave={() => {
+        if(onListOfferHover) {
+          onListOfferHover(undefined);
+        }
+      }}
     >
       { isPremium ?
         <div className="place-card__mark">
