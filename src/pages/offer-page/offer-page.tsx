@@ -10,9 +10,10 @@ import FavoriteButton from '../../components/favorite-button/favorite-button';
 type OfferPageProps = {
   fullOffers: FullOffer[];
   reviews: userReviews[];
+  onListOfferHover: (activeId?: string) => void;
 }
 
-function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
+function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
 
@@ -110,7 +111,7 @@ function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              {offers.slice(0, 3).map((item) => <PlaceCard key={item.id} offer={item} className='near-places'/>)}
+              {offers.slice(0, 3).map((item) => <PlaceCard onListOfferHover={onListOfferHover} key={item.id} offer={item} className='near-places'/>)}
 
             </div>
           </section>

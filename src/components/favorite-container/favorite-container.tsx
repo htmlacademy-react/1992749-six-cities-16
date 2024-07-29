@@ -4,9 +4,10 @@ import PlaceCard from '../place-card/place-card';
 
 type FavoriteContainerProps = {
   favorites: Offer[];
+  onListOfferHover: (activeId?: string) => void;
 }
 
-function FavoriteContainer({favorites}: FavoriteContainerProps): JSX.Element {
+function FavoriteContainer({favorites, onListOfferHover}: FavoriteContainerProps): JSX.Element {
   const offerCardsByCity = getOfferCardsByCity(favorites);
 
   return (
@@ -23,7 +24,7 @@ function FavoriteContainer({favorites}: FavoriteContainerProps): JSX.Element {
               </div>
             </div>
             <div className="favorites__places">
-              {offerCards.map((item) => <PlaceCard key={item.id} offer={item} className='favorites'/>)}
+              {offerCards.map((item) => <PlaceCard onListOfferHover={onListOfferHover} key={item.id} offer={item} className='favorites'/>)}
             </div>
           </li>
         ))}
