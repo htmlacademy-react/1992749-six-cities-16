@@ -3,6 +3,7 @@ import ListOffers from '../../components/list-offers/list-offers';
 import { ACTIVE_CITY, CITY, CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 import Map from '../../components/map/map';
+import { useState } from 'react';
 
 type MainPageProps = {
   offers: Offer[];
@@ -10,6 +11,13 @@ type MainPageProps = {
 
 function MainPage({offers}: MainPageProps): JSX.Element {
 
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
+
+  const handleListOfferHover = (activeId?: string) => {
+    const currentOffer = offers.find((point) => point.id === activeId);
+
+    setSelectedOffer(currentOffer);
+  };
   return (
 
     <div className="page page--gray page--main">
@@ -52,11 +60,11 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
 
-              <ListOffers offers={offers}/>
+              <ListOffers offers={offers} onListOfferHover={handleListOfferHover}/>
 
             </section>
             <div className="cities__right-section">
-              <Map city={CITY} offers={offers}/>
+              <Map city={CITY} offers={offers} selectedOffer={selectedOffer}/>
             </div>
           </div>
         </div>
