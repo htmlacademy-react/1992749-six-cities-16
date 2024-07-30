@@ -13,8 +13,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
-  const handleListOfferHover = (activeId?: string) => {
-    const currentOffer = offers.find((point) => point.id === activeId);
+  const handleListOfferHover = (id?: string) => {
+    const currentOffer = offers.find((point) => point.id === id);
 
     setSelectedOffer(currentOffer);
   };
@@ -64,7 +64,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <Map city={CITY} offers={offers} selectedOffer={selectedOffer}/>
+              <Map city={CITY} offers={offers} selectedOffer={selectedOffer} className='cities'/>
             </div>
           </div>
         </div>
