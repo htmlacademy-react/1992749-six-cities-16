@@ -4,23 +4,22 @@ import { FullOffer, Offer, userReviews} from '../../types/types';
 import { getCapitalLetter } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
-import { AppRoute } from '../../const';
+import { AppRoute, numericalValues } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import Map from '../../components/map/map';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
   reviews: userReviews[];
-  onListOfferHover: (activeId?: string) => void;
 }
 
-function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX.Element {
+function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
-  const selectedOffer: Offer | undefined = offers.find((item) => item.id === currentOffer?.id);
   if (!currentOffer) {
     return <Navigate to={AppRoute.NotFound} replace/>;
   }
+  const selectedOffer: Offer | undefined = offers.find((item) => item.id === currentOffer.id);
   const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description, isFavorite} = currentOffer;
 
   return (
@@ -51,7 +50,7 @@ function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${(rating * 20)}%`}}></span>
+                  <span style={{width: `${(rating * numericalValues.Twenty)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">4.8</span>
@@ -105,14 +104,14 @@ function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX
 
             </div>
           </div>
-          <Map city={currentOffer.city} selectedOffer={selectedOffer} offers={offers.slice(0, 4)} className='offer'/>
+          <Map city={currentOffer.city} selectedOffer={selectedOffer} offers={offers.slice(numericalValues.Zero, numericalValues.Four)} className='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              {offers.slice(0, 3).map((item) => <PlaceCard onListOfferHover={onListOfferHover} key={item.id} offer={item} className='near-places'/>)}
+              {offers.slice(numericalValues.Zero, numericalValues.Three).map((item) => <PlaceCard key={item.id} offer={item} className='near-places'/>)}
 
             </div>
           </section>

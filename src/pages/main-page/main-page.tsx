@@ -13,8 +13,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
-  const handleListOfferHover = (activeId?: string) => {
-    const currentOffer = offers.find((point) => point.id === activeId);
+  const handleListOfferHover = (id?: string) => {
+    const currentOffer = offers.find((point) => point.id === id);
 
     setSelectedOffer(currentOffer);
   };

@@ -1,23 +1,21 @@
-import { useState } from 'react';
 import { Offer } from '../../types/types';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, numericalValues } from '../../const';
 import { getCapitalLetter } from '../../utils';
 import FavoriteButton from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: Offer;
   className: string;
-  onListOfferHover: (activeId?: string) => void;
+  onListOfferHover?: (id?: string) => void;
 }
 
 function PlaceCard({offer, className, onListOfferHover}: PlaceCardProps): JSX.Element {
   const {price, previewImage, title, type, isPremium, rating, id, isFavorite} = offer;
-  const [activeId] = useState(id);
 
   return (
     <article className={`${className}__card place-card`}
-      onMouseEnter={() => onListOfferHover(activeId)}
+      onMouseEnter={() => onListOfferHover && onListOfferHover(id)}
       onMouseLeave={() => {
         if(onListOfferHover) {
           onListOfferHover(undefined);
@@ -33,7 +31,7 @@ function PlaceCard({offer, className, onListOfferHover}: PlaceCardProps): JSX.El
           <img className="place-card__image" src={previewImage} width={(className === 'favorites') ? '150' : '260'} height={(className === '/favorites') ? '110' : '200'} alt="Place image" />
         </Link>
       </div>
-      <div className={`${className === 'favorites' ? 'favorites__card-info' : ''}place-card__info`}>
+      <div className={`${className === 'favorites' ? 'favorites__card-info ' : ''}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -43,7 +41,7 @@ function PlaceCard({offer, className, onListOfferHover}: PlaceCardProps): JSX.El
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${(rating * 20)}%`}}></span>
+            <span style={{width: `${(rating * numericalValues.Twenty)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
