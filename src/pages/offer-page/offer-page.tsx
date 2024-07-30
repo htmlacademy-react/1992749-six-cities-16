@@ -1,11 +1,12 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Reviews from '../../components/reviews/reviews';
-import { FullOffer, userReviews} from '../../types/types';
+import { FullOffer, Offer, userReviews} from '../../types/types';
 import { getCapitalLetter } from '../../utils';
 import { offers } from '../../mocks/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { AppRoute } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
+import Map from '../../components/map/map';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
@@ -16,7 +17,7 @@ type OfferPageProps = {
 function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
-
+  const selectedOffer: Offer | undefined = offers.find((item) => item.id === currentOffer?.id);
   if (!currentOffer) {
     return <Navigate to={AppRoute.NotFound} replace/>;
   }
@@ -104,7 +105,7 @@ function OfferPage({fullOffers, reviews, onListOfferHover}: OfferPageProps): JSX
 
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map city={currentOffer.city} selectedOffer={selectedOffer} offers={offers.slice(0, 4)} className='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">

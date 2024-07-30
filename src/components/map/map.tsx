@@ -21,9 +21,10 @@ type MapProps = {
   city: City;
   offers: Offer[];
   selectedOffer?: Offer;
+  className: string;
 }
 
-function Map({city, offers, selectedOffer}: MapProps) {
+function Map({city, offers, selectedOffer, className}: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -48,8 +49,9 @@ function Map({city, offers, selectedOffer}: MapProps) {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section className={`${className}__map map`} ref={mapRef}></section>
   );
 }
 
 export default Map;
+
