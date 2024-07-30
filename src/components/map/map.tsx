@@ -1,5 +1,5 @@
 import {useEffect, useRef} from 'react';
-import leaflet from 'leaflet';
+import leaflet, { layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
@@ -31,6 +31,7 @@ function Map({city, offers, selectedOffer, className}: MapProps) {
 
   useEffect(() => {
     if (map) {
+      const markerLayer = layerGroup().addTo(map);
       offers.forEach((point) => {
         leaflet
           .marker({
@@ -45,6 +46,10 @@ function Map({city, offers, selectedOffer, className}: MapProps) {
           })
           .addTo(map);
       });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, offers, selectedOffer]);
 
