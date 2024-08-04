@@ -11,6 +11,10 @@ import { PublicRoute } from '../public-route/public-route';
 import { FullOffer, Offer } from '../../types/types';
 import { getAuthorizationStatus } from '../../authorization-status';
 import { reviews } from '../../mocks/reviews';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import { useEffect } from 'react';
+import { loadOffers } from '../../features/sorting-offers-by-cities';
 
 
 type AppProps = {
@@ -21,39 +25,45 @@ type AppProps = {
 function App({offers, fullOffers}: AppProps): JSX.Element {
   const favorites = offers.filter((item) => item.isFavorite);
   const authorizationStatus = getAuthorizationStatus();
+  const dispatch = store.dispatch;
+  useEffect(() => {
+    dispatch(loadOffers());
+  }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Main} element={<Layout favoritesCount={favorites.length}/>} >
-          <Route index element={
-            < MainPage offers={offers}/>
-          }
-          />
-          <Route path={AppRoute.Offer} element={
-            <OfferPage fullOffers={fullOffers} reviews={reviews}/>
-          }
-          />
-          <Route path={AppRoute.Login} element={
-            <PublicRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <LoginPage />
-            </PublicRoute>
-          }
-          />
-          <Route path={AppRoute.Favorites} element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
-              <FavoritesPage favorites={favorites}/>
-            </PrivateRoute>
-          }
-          />
-        </Route>
-        <Route path='*' element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path={AppRoute.Main} element={<Layout favoritesCount={favorites.length}/>} >
+            <Route index element={
+              < MainPage offers={offers}/>
+            }
+            />
+            <Route path={AppRoute.Offer} element={
+              <OfferPage fullOffers={fullOffers} reviews={reviews}/>
+            }
+            />
+            <Route path={AppRoute.Login} element={
+              <PublicRoute
+                authorizationStatus={authorizationStatus}
+              >
+                <LoginPage />
+              </PublicRoute>
+            }
+            />
+            <Route path={AppRoute.Favorites} element={
+              <PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
+                <FavoritesPage favorites={favorites}/>
+              </PrivateRoute>
+            }
+            />
+          </Route>
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

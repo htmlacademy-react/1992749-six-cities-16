@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import ListOffers from '../../components/list-offers/list-offers';
-import { ACTIVE_CITY, CITY, CITY_NAMES } from '../../const';
+import { CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { setCurrentCity } from '../../features/sorting-offers-by-cities';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 type MainPageProps = {
   offers: Offer[];
@@ -18,6 +20,14 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
     setSelectedOffer(currentOffer);
   };
+
+  const dispatch = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.rental.currentCity);
+  const handleCityChange = (city: string) => {
+    dispatch(setCurrentCity(city));
+  };
+  const offersForCurrentCity = offers.filter((item) => item.city.name === currentCity);
+
   return (
 
     <div className="page page--gray page--main">
@@ -29,8 +39,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
             <ul className="locations__list tabs__list">
               {CITY_NAMES.map((item) => (
-                <li className="locations__item" key={item}>
-                  <Link className={`locations__item-link tabs__item ${(item === ACTIVE_CITY) ? 'tabs__item--active' : ''}`} to="#">
+                <li className="locations__item" key={item} onClick={() => handleCityChange(item)}>
+                  <Link className={`locations__item-link tabs__item ${(item === currentCity) ? 'tabs__item--active' : ''}`} to="#">
                     <span>{item}</span>
                   </Link>
                 </li>
@@ -43,7 +53,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {ACTIVE_CITY}</b>
+              <b className="places__found">{offersForCurrentCity.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -60,11 +70,11 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
 
-              <ListOffers offers={offers} onListOfferHover={handleListOfferHover}/>
+              <ListOffers offers={offersForCurrentCity} onListOfferHover={handleListOfferHover} />
 
             </section>
             <div className="cities__right-section">
-              <Map city={CITY} offers={offers} selectedOffer={selectedOffer} className='cities'/>
+              <Map city={offersForCurrentCity[0].city} offers={offersForCurrentCity} selectedOffer={selectedOffer} className='cities'/>
             </div>
           </div>
         </div>
