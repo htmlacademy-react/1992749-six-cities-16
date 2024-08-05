@@ -39,3 +39,5 @@ export enum numericalValues {
   Four = 4,
   Twenty = 20,
 }
+
+export const sortOptions: string[] = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];

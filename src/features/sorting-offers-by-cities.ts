@@ -5,7 +5,7 @@ import { AppDispatch } from '../store';
 import { offers } from '../mocks/offers';
 
 
-export type SortOption = 'Popular' | 'PriceLowToHigh' | 'PriceHighToLow' | 'TopRatedFirst';
+export type SortOption = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 
 type InitialState = {
   currentCity: string;
