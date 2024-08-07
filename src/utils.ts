@@ -42,3 +42,7 @@ export const gethumanizeDate = (item: string) => {
 };
 
 export const getSortedByDates = (a: userReview, b: userReview) => (new Date(b.date).getTime()) - (new Date(a.date).getTime());
+
+export const getPricesLowToHigh = (a: Offer, b: Offer) => (a.price - b.price);
+export const getPricesHighToLow = (a: Offer, b: Offer) => (b.price - a.price);
+export const getTopRatedFirst = (a: Offer, b: Offer) => (b.rating - a.rating);
