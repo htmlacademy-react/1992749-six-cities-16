@@ -8,18 +8,14 @@ import { setCurrentCity, SortOption } from '../../features/sorting-offers-by-cit
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import SortOptions from '../../components/sort-options/sort-options';
 import { getPricesHighToLow, getPricesLowToHigh, getTopRatedFirst } from '../../utils';
+import { offers } from '../../mocks/offers';
 
-type MainPageProps = {
-  offers: Offer[];
-}
-
-function MainPage({offers}: MainPageProps): JSX.Element {
-
+function MainPage(): JSX.Element {
+  const stateOffers = useAppSelector((state) => state.rental.offers);
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const handleListOfferHover = (id?: string) => {
-    const currentOffer = offers.find((point) => point.id === id);
-
+    const currentOffer = stateOffers.find((point) => point.id === id);
     setSelectedOffer(currentOffer);
   };
 
@@ -31,7 +27,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const offersForCurrentCity = offers.filter((item) => item.city.name === currentCity);
   const currentSortOption: SortOption = useAppSelector((state) => state.rental.sortOption);
 
-  let offersForCurrentCityBySortOption: Offer[];
+  let offersForCurrentCityBySortOption: Offer[] = offersForCurrentCity;
   if (currentSortOption === 'Price: low to high') {
     offersForCurrentCityBySortOption = offersForCurrentCity.sort(getPricesLowToHigh);
   }
