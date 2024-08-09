@@ -17,7 +17,7 @@ function SortOptions({currentSortOption}: SortOptionsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const handleSortTypeClick = (item: SortOption) => {
+  const handleSortTypeClick = (item: string) => {
     setIsOpened(false);
     dispatch(setSortOption(item));
   };

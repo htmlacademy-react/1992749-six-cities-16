@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ListOffers from '../../components/list-offers/list-offers';
-import { CITY_NAMES } from '../../const';
+import { CITY, CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 import Map from '../../components/map/map';
 import { useState } from 'react';
@@ -8,18 +8,17 @@ import { setCurrentCity, SortOption } from '../../features/sorting-offers-by-cit
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import SortOptions from '../../components/sort-options/sort-options';
 import { getPricesHighToLow, getPricesLowToHigh, getTopRatedFirst } from '../../utils';
+import { offers } from '../../mocks/offers';
 
 type MainPageProps = {
-  offers: Offer[];
+  stateOffers: Offer[];
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element {
-
+function MainPage({stateOffers}: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const handleListOfferHover = (id?: string) => {
-    const currentOffer = offers.find((point) => point.id === id);
-
+    const currentOffer = stateOffers.find((point) => point.id === id);
     setSelectedOffer(currentOffer);
   };
 
@@ -28,10 +27,11 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const handleCityChange = (city: string) => {
     dispatch(setCurrentCity(city));
   };
+
   const offersForCurrentCity = offers.filter((item) => item.city.name === currentCity);
   const currentSortOption: SortOption = useAppSelector((state) => state.rental.sortOption);
 
-  let offersForCurrentCityBySortOption: Offer[];
+  let offersForCurrentCityBySortOption: Offer[] = offersForCurrentCity;
   if (currentSortOption === 'Price: low to high') {
     offersForCurrentCityBySortOption = offersForCurrentCity.sort(getPricesLowToHigh);
   }
@@ -78,7 +78,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <Map city={offersForCurrentCity[0].city} offers={offersForCurrentCity} selectedOffer={selectedOffer} className='cities'/>
+              <Map city={offersForCurrentCity[0].city ?? CITY} offers={offersForCurrentCity} selectedOffer={selectedOffer} className='cities'/>
             </div>
           </div>
         </div>
