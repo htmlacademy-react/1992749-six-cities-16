@@ -31,7 +31,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<Layout favoritesCount={favorites.length}/>} >
           <Route index element={
-            < MainPage />
+            < MainPage stateOffers={stateOffers}/>
           }
           />
           <Route path={AppRoute.Offer} element={

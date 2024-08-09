@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ListOffers from '../../components/list-offers/list-offers';
-import { CITY_NAMES } from '../../const';
+import { CITY, CITY_NAMES } from '../../const';
 import { Offer } from '../../types/types';
 import Map from '../../components/map/map';
 import { useState } from 'react';
@@ -10,8 +10,11 @@ import SortOptions from '../../components/sort-options/sort-options';
 import { getPricesHighToLow, getPricesLowToHigh, getTopRatedFirst } from '../../utils';
 import { offers } from '../../mocks/offers';
 
-function MainPage(): JSX.Element {
-  const stateOffers = useAppSelector((state) => state.rental.offers);
+type MainPageProps = {
+  stateOffers: Offer[];
+}
+
+function MainPage({stateOffers}: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(undefined);
 
   const handleListOfferHover = (id?: string) => {
@@ -24,6 +27,7 @@ function MainPage(): JSX.Element {
   const handleCityChange = (city: string) => {
     dispatch(setCurrentCity(city));
   };
+
   const offersForCurrentCity = offers.filter((item) => item.city.name === currentCity);
   const currentSortOption: SortOption = useAppSelector((state) => state.rental.sortOption);
 
@@ -74,7 +78,7 @@ function MainPage(): JSX.Element {
 
             </section>
             <div className="cities__right-section">
-              <Map city={offersForCurrentCity[0].city} offers={offersForCurrentCity} selectedOffer={selectedOffer} className='cities'/>
+              <Map city={offersForCurrentCity[0].city ?? CITY} offers={offersForCurrentCity} selectedOffer={selectedOffer} className='cities'/>
             </div>
           </div>
         </div>
