@@ -1,26 +1,43 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Reviews from '../../components/reviews/reviews';
-import { FullOffer, Offer, userReviews} from '../../types/types';
 import { getCapitalLetter } from '../../utils';
-import { offers } from '../../mocks/offers';
-import PlaceCard from '../../components/place-card/place-card';
 import { AppRoute, NumericalValues } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import Map from '../../components/map/map';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchFullOfferAction, fetchOffersNearbyAction, fetchReviewsAction } from '../../store/api-actions';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
+import PlaceCard from '../../components/place-card/place-card';
 
-type OfferPageProps = {
-  fullOffers: FullOffer[];
-  reviews: userReviews[];
-}
-
-function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {id} = useParams();
-  const currentOffer: FullOffer | undefined = fullOffers.find((item) => item.id === id);
-  if (!currentOffer) {
+  const currentActivOffer = useAppSelector((state) => state.rental.currentOffer);
+  const reviews = useAppSelector((state) => state.rental.reviews);
+  const offersNearby = useAppSelector((state) => state.rental.offersNearby);
+  const isCurrentOfferLoadingStatus = useAppSelector((state) => state.rental.isCurrentOfferLoadingStatus);
+  const isReviewsLoadingStatus = useAppSelector((state) => state.rental.isReviewsLoadingStatus);
+  const isOffersNearbyLoadingStatus = useAppSelector((state) => state.rental.isOffersNearbyLoadingStatus);
+  useEffect(() => {
+    if(id) {
+      dispatch(fetchFullOfferAction(id));
+      dispatch(fetchReviewsAction(id));
+      dispatch(fetchOffersNearbyAction(id));
+    }
+  }, [dispatch, id]);
+
+  if (isCurrentOfferLoadingStatus || isReviewsLoadingStatus || isOffersNearbyLoadingStatus) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  if (!currentActivOffer) {
     return <Navigate to={AppRoute.NotFound} replace/>;
   }
-  const selectedOffer: Offer | undefined = offers.find((item) => item.id === currentOffer.id);
-  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description, isFavorite} = currentOffer;
+
+  const {bedrooms, images, isPremium, rating, title, type, maxAdults, price, goods, host, description, isFavorite} = currentActivOffer;
 
   return (
     <div className="page">
@@ -46,7 +63,7 @@ function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <FavoriteButton isFavorite={isFavorite} className='offer' />
+                <FavoriteButton isFavorite={isFavorite} className='offer' id={id}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -100,18 +117,18 @@ function OfferPage({fullOffers, reviews}: OfferPageProps): JSX.Element {
                 </div>
               </div>
 
-              <Reviews reviews={reviews}/>
+              {<Reviews reviews={reviews}/>}
 
             </div>
           </div>
-          <Map city={currentOffer.city} selectedOffer={selectedOffer} offers={offers.slice(NumericalValues.Zero, NumericalValues.Four)} className='offer'/>
+          {<Map city={currentActivOffer.city} selectedOffer={currentActivOffer} offers={offersNearby.slice(NumericalValues.Zero, NumericalValues.Three)} className='offer'/>}
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              {offers.slice(NumericalValues.Zero, NumericalValues.Three).map((item) => <PlaceCard key={item.id} offer={item} className='near-places'/>)}
+              {offersNearby.slice(NumericalValues.Zero, NumericalValues.Three).map((item) => <PlaceCard key={item.id} offer={item} className='near-places'/>)}
 
             </div>
           </section>

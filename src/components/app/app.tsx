@@ -8,15 +8,13 @@ import PageNotFound from '../page-not-found/page-not-found';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { PublicRoute } from '../public-route/public-route';
-import { reviews } from '../../mocks/reviews';
-import { fullOffers } from '../../mocks/full-offers';
 import { useAppSelector } from '../../store/hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 
 function App(): JSX.Element {
   const stateOffers = useAppSelector((state) => state.rental.offers);
-  const favorites = stateOffers.filter((item) => item.isFavorite);
+  const favorites = useAppSelector((state) => state.rental.favorites);
 
   const authorizationStatus = useAppSelector((state) => state.rental.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.rental.isOffersDataLoading);
@@ -36,7 +34,7 @@ function App(): JSX.Element {
           }
           />
           <Route path={AppRoute.Offer} element={
-            <OfferPage fullOffers={fullOffers} reviews={reviews}/>
+            <OfferPage />
           }
           />
           <Route path={AppRoute.Login} element={

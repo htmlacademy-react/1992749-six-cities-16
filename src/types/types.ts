@@ -60,19 +60,36 @@ export type userReview = {
 
 export type userReviews = userReview[];
 
+export type addReview = {
+  comment: string;
+  rating: number;
+}
+
 export type CardsByCityType = {
   [key: string]: Offer[];
 }
 
-export type SortOption = string; //'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
+export type SortOption = string;
 
 export type AuthData = {
   login: string;
   password: string;
 };
 
-export type UserData = {
-  id: number;
+export type AuthorizationUser = {
   email: string;
   token: string;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type Message = {
+  offerId: string | undefined;
+  data: addReview;
+};
+
+export type FavoriteStatus = {
+  offerId: string | undefined;
+  status: number;
 };
